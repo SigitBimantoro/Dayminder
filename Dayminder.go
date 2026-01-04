@@ -137,11 +137,11 @@ func cetakData(A Tabdayminder, n int) {
 func seqSearch(A Tabdayminder, n int, id string) int {
 	var i int = 0
 	var idx int = -1
-	var found bool = false
-	for i < n && !found {
+	var ketemu bool = false
+	for i < n && !ketemu {
 		if A[i].id == id {
 			idx = i
-			found = true
+			ketemu = true
 		}
 		i++
 	}
@@ -150,6 +150,7 @@ func seqSearch(A Tabdayminder, n int, id string) int {
 
 func cariMenu() {
 	var jenis, key string
+	var idx int
 	fmt.Println("1. Cari Kategori (Sequential)")
 	fmt.Println("2. Cari Deadline (Binary - Auto Sort)")
 	fmt.Print("Pilih: ")
@@ -163,7 +164,7 @@ func cariMenu() {
 		fmt.Print("Masukkan Deadline: ")
 		fmt.Scan(&key)
 		selectionSort(&datadayminder, N)
-		idx := binarySearch(datadayminder, N, key)
+		idx = binarySearch(datadayminder, N, key)
 		if idx != -1 {
 			fmt.Printf("Ditemukan: %s - %s\n", datadayminder[idx].judul, datadayminder[idx].status)
 		} else {
@@ -173,36 +174,37 @@ func cariMenu() {
 }
 
 func cariKategori(A Tabdayminder, n int, kateg string) {
-	var found bool = false
+	var ketemu bool = false
+	var i int
 	fmt.Println("Hasil Pencarian:")
-	for i := 0; i < n; i++ {
+	for i = 0; i < n; i++ {
 		if A[i].kateg == kateg {
 			fmt.Printf("- %s (%s)\n", A[i].judul, A[i].status)
-			found = true
+			ketemu = true
 		}
 	}
-	if !found {
+	if !ketemu {
 		fmt.Println("Tidak ada data.")
 	}
 }
 
 func binarySearch(A Tabdayminder, n int, date string) int {
-	var left, right, mid int
+	var kiri, kanan, tengah int
 	var idx int = -1
-	var found bool = false
+	var ketemu bool = false
 
-	left = 0
-	right = n - 1
+	kiri = 0
+	kanan = n - 1
 
-	for left <= right && !found {
-		mid = (left + right) / 2
-		if A[mid].date == date {
-			idx = mid
-			found = true
-		} else if date < A[mid].date {
-			right = mid - 1
+	for kiri <= kanan && !ketemu {
+		tengah = (kiri + kanan) / 2
+		if A[tengah].date == date {
+			idx = tengah
+			ketemu = true
+		} else if date < A[tengah].date {
+			kanan = tengah - 1
 		} else {
-			left = mid + 1
+			kiri = tengah + 1
 		}
 	}
 	return idx
